@@ -35,6 +35,7 @@
             <h3>Имя пользователя: {{$d->name_user}} <br>
                 Номер телефона: {{$d->phone}} <br>
                 Почта: {{$d->pochta}}</h3>
+            <h5>Купленных билетов нет</h5>
         @endforeach
     </div>
 @endsection
