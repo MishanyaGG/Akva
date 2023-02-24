@@ -15,23 +15,27 @@ class MainController extends Controller
         if(isset($_SESSION['user']))
         {
             $id = $_SESSION['user'];
-            $db = DB::table('Pols')->where('id','=',$id)->get();
+            $db = DB::table('Pols')->where('id','=',$_SESSION['user'])->get();
         }
         else{
             $db = DB::table('Pols')->get();
             $id = 0;
         }
 
-        return view('index',['cc'=>false,'id'=>$id,'db'=>$db,'key'=>false]);
+        return view('index',['cc'=>false,'id'=>$id,'db'=>$db,'key'=>false,'buy'=>$_SESSION['error']]);
     }
 
     public function error(){
 
-        return view('index_error',['id'=>0,'cc'=>false,'error_login'=>$_SESSION['error']]);
+        $db = DB::table('Pols')->where('id','=',$_SESSION['user'])->get();
+
+        return view('index_error',['id'=>0,'cc'=>false,'db'=>$db,'error_login'=>$_SESSION['error']]);
     }
 
     // Страница КОНТАКТЫ
     public function contact(){
+
+        $_SESSION['error'] = null;
 
         // Проверка на существование входящего пользователя в аккаунт
 
@@ -51,11 +55,19 @@ class MainController extends Controller
     // Страница КОНТАКТЫ
     public function profile(){
 
+        $_SESSION['error'] = null;
+
         $db = DB::table('pols')
             ->where('id','=',$_SESSION['user'])
             ->get();
 
-        return view('profile',['db'=>$db]);
+        $bilets = DB::table('bilet')
+            ->where('user_id','=',$_SESSION['user'])
+            ->get();
+
+        $count = count($bilets);
+
+        return view('profile',['db'=>$db,'bilets'=>$bilets,'count'=>$count]);
 
     }
 
@@ -97,6 +109,8 @@ class MainController extends Controller
     // ОБАБОТКА РЕГИСТРАЦИИ
     public function register(Request $rq){
 
+        $_SESSION['error'] = null;
+
         // Получение данных из формы
 
         $last_name = $rq->input('last_name');
@@ -121,6 +135,7 @@ class MainController extends Controller
 
         $db = DB::table('Pols')
             ->where('name_user','=',$name_user)
+            ->orWhere('pochta','=',$pochta)
             ->get();
 
         if(count($db)!=1){
@@ -142,7 +157,7 @@ class MainController extends Controller
             foreach ($db as $d)
                 $_SESSION['user']=$d->id;
 
-            return view('index',['cc'=>true,'db'=>$db,'key'=>true]);
+            return view('index',['cc'=>true,'db'=>$db,'buy'=>$_SESSION['error'],'key'=>true]);
         }
         else{
             $_SESSION['error'] = "register";
@@ -150,6 +165,50 @@ class MainController extends Controller
             return redirect()->route('error');
         }
 
+    }
+
+    public function bilet(Request $rq){
+
+        $kid = $rq->input('kid');
+        $old = $rq->input('old');
+        $date = $rq->input('date');
+
+        $rq->validate([
+           'kid'=>'required',
+           'old'=>'required',
+           'date'=>'required'
+        ]);
+
+        if ($kid !=0){
+            for ($i = 1; $i<=$kid; $i++){
+                DB::table('bilet')->insert([
+                    'tarif'=>"Детский",
+                    'price'=>350,
+                    'date'=>$date,
+                    'user_id'=>$_SESSION['user']
+                ]);
+            }
+        }
+
+        if ($old !=0){
+            for ($i = 1; $i<=$old; $i++){
+                DB::table('bilet')->insert([
+                    'tarif'=>"Взрослый",
+                    'price'=>800,
+                    'date'=>$date,
+                    'user_id'=>$_SESSION['user']
+                ]);
+            }
+        }
+        if ($kid == 0 && $old == 0){
+
+            $_SESSION['error']="bilet";
+
+            return redirect()->route('error');
+        }
+
+        $_SESSION['error'] = "sucess_buy";
+        return redirect()->route('index');
     }
 
     // Метод выхода из акка

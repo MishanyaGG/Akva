@@ -1,3 +1,18 @@
+/*Ширина scrollbar*/
+body::-webkit-scrollbar{
+    width: 10px;
+}
+
+/*Цвет дорожки*/
+body::-webkit-scrollbar-track{
+    background: #1E6D74;
+}
+
+body::-webkit-scrollbar-thumb{
+    background: aqua; /*Цвет плашки*/
+    border-radius: 20px; /*Закругление плашки*/
+}
+
 /*********************
    Параметры для body
 *********************/
@@ -10,11 +25,7 @@ body{
    Параметры контейнера ГЛАВНОГО КОНТЕНТА
 *****************************************/
 
-.boy-main{
-    margin-top: 2%; /*Отступ сверху*/
-    margin-left: 15%; /*Отсутп слева*/
-    margin-right: auto; /*Отсутп справа*/
-}
+
 
 /*********************
    Параметры для ФОТО
@@ -22,6 +33,8 @@ body{
 
 img{
     border-radius: 20px; /*Закругление границ*/
+    width: 500px;
+    height: 300px;
 }
 
 /*********************************************
@@ -30,8 +43,8 @@ img{
 
 .menu-ind{
     display: flex; /*Расположение элементов*/
-    margin-top: 20px; /*Отступ сверху*/
     margin-left: 18%; /*Отступ слева*/
+    margin-top: 20px;
     width: 80%; /*Ширина элемента*/
     color: white; /*Цвет элемента*/
 }
@@ -63,6 +76,37 @@ input{
     width: 300px; /*Ширина элемента*/
     border-radius: 20px; /*Округление границ элемента*/
     border-color: antiquewhite; /*Цвет границ*/
+}
+
+/**************************************************
+     Параметры для инпутки в форме покупки билета
+***************************************************/
+
+.tb-inp{
+    width: 200px; /*Ширина элемента*/
+    border-radius: 20px; /*Округление границ элемента*/
+    border-color: antiquewhite; /*Цвет границ*/
+}
+
+.tb-inp-date{
+    width: 110px; /*Ширина элемента*/
+    border-radius: 20px; /*Округление границ элемента*/
+    border-color: antiquewhite; /*Цвет границ*/
+}
+
+/*******************************************
+     Убирают стрелки в инпутке типа number
+********************************************/
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
 }
 
 /**********************************************************

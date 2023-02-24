@@ -35,7 +35,18 @@
             <h3>Имя пользователя: {{$d->name_user}} <br>
                 Номер телефона: {{$d->phone}} <br>
                 Почта: {{$d->pochta}}</h3>
-            <h5>Купленных билетов нет</h5>
         @endforeach
+
+            @if($count==0)
+                <h3>Купленных билетов нет</h3>
+            @else
+                <h1>Купленные билеты</h1>
+                @foreach($bilets as $bil)
+                    <h3>Тариф: {{$bil->tarif}} <br>
+                        Цена: {{$bil->price}} <br>
+                        Дата: {{$bil->date}}</h3>
+                    <hr>
+                @endforeach
+            @endif
     </div>
 @endsection

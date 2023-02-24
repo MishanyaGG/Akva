@@ -55,3 +55,5 @@ Route::get('/profile','MainController@profile')->name('profile');
 *************************************/
 
 Route::get('/leave','MainController@leave')->name('leave');
+
+Route::post('/bilet','MainController@bilet')->name('bilet');
