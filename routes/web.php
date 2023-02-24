@@ -14,12 +14,38 @@ use Illuminate\Support\Facades\Route;
 */
 session_start();
 
+/************************
+     ГЛАВНАЯ СТРАНИЦА
+************************/
+
 Route::get('/', 'MainController@index')->name('index');
+
+/*************************************
+     Страница вывода некоторых ошибок
+**************************************/
+
+Route::get('/error','MainController@error')->name('error');
+
+/***************************************
+    Страница для обработки регистрации
+****************************************/
 
 Route::post('/reg','MainController@register')->name('register');
 
-Route::post('/login','MainController@login')->name('login');
+/*****************************************
+    Страница для обработки входа в профиль
+******************************************/
+
+Route::match(['get','post'],'/login','MainController@login')->name('login');
+
+/************************
+     СТРАНИЦА КОНТАКТЫ
+************************/
 
 Route::get('/contacts','MainController@contact')->name('contact');
+
+/***********************************
+     СТРАНИЦА ДЛЯ ВЫХОДА ИЗ ПРОФИЛЯ
+*************************************/
 
 Route::get('/leave','MainController@leave')->name('leave');
