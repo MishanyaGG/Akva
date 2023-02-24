@@ -48,6 +48,17 @@ class MainController extends Controller
         return view('contact',['cc'=>false,'id'=>$id,'db'=>$db]);
     }
 
+    // Страница КОНТАКТЫ
+    public function profile(){
+
+        $db = DB::table('pols')
+            ->where('id','=',$_SESSION['user'])
+            ->get();
+
+        return view('profile',['db'=>$db]);
+
+    }
+
     // ОБРАБОТКА ВХОД
     public function login(Request $rq){
 
@@ -73,7 +84,7 @@ class MainController extends Controller
 
         if (count($db) != 0){
             foreach ($db as $d)
-            $_SESSION['user']=$d->id;
+                $_SESSION['user']=$d->id;
 
             return redirect()->route('index');
         }
@@ -91,6 +102,7 @@ class MainController extends Controller
         $last_name = $rq->input('last_name');
         $first_name = $rq->input('first_name');
         $name_user = $rq->input('name_user');
+        $phone = $rq->input('phone');
         $pochta = $rq->input('pochta');
         $pass = $rq->input('pass');
 
@@ -100,6 +112,7 @@ class MainController extends Controller
             'last_name'=>['required'],
             'first_name'=>['required'],
             'name_user'=>['required'],
+            'phone'=>['required'],
             'pochta'=>['required'],
             'pass'=>['required']
         ]);
@@ -108,8 +121,6 @@ class MainController extends Controller
 
         $db = DB::table('Pols')
             ->where('name_user','=',$name_user)
-            ->orWhere('pochta','=',$pochta)
-            ->where('password','=',$pass)
             ->get();
 
         if(count($db)!=1){
@@ -117,6 +128,7 @@ class MainController extends Controller
                 'last_name'=>$last_name,
                 'first_name'=>$first_name,
                 'name_user'=>$name_user,
+                'phone'=>$phone,
                 'pochta'=>$pochta,
                 'password'=>$pass
             ]);

@@ -44,6 +44,12 @@ Route::match(['get','post'],'/login','MainController@login')->name('login');
 
 Route::get('/contacts','MainController@contact')->name('contact');
 
+/************************
+     СТРАНИЦА ПРОФИЛЬ
+************************/
+
+Route::get('/profile','MainController@profile')->name('profile');
+
 /***********************************
      СТРАНИЦА ДЛЯ ВЫХОДА ИЗ ПРОФИЛЯ
 *************************************/

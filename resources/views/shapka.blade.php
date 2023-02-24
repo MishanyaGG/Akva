@@ -84,10 +84,15 @@
 
             <input type="text" class="form-label" aria-describedby="emailHelp" name="first_name" placeholder="Имя">
 
+            <br>
+
             <input type="text" class="form-label" aria-describedby="emailHelp" name="name_user" placeholder="Имя пользоватлея">
 
             <br>
                 <input type="email" class="form-label" aria-describedby="emailHelp" name="pochta" placeholder="Почта">
+            <br>
+
+                <input type="tel" class="form-label" aria-describedby="emailHelp" name="phone" placeholder="Номер телефона (89641543476)">
             <br>
 
             <input type="password" name="pass" placeholder="Пароль">

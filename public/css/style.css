@@ -102,3 +102,9 @@ input{
     margin-top: 20px; /*Отступ сверху*/
     text-align: center; /*Расположение текста*/
 }
+
+.profile{
+    color: white;
+    margin-top: 20px; /*Отступ сверху*/
+    text-align: center; /*Расположение текста*/
+}

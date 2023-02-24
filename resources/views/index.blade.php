@@ -31,6 +31,7 @@
                     {{$d->last_name}} {{$d->first_name}}
                 </button>
                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{route('profile')}}">Профиль</a></li>
                     <li><a class="dropdown-item" href="{{route('leave')}}">Выйти</a></li>
                 </ul>
             </div>
