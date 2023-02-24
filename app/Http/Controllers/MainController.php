@@ -167,6 +167,9 @@ class MainController extends Controller
 
     }
 
+
+    /*Обработка покупки билета*/
+
     public function bilet(Request $rq){
 
         $kid = $rq->input('kid');
